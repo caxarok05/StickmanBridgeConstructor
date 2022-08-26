@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts
+namespace Scripts.Environment
 {
     public class SpawnPlatforms : MonoBehaviour
     {
@@ -8,44 +8,43 @@ namespace Scripts
         #region CONSTANTS
 
         private const float SPAWN_DISTANCE = 40;
-        private const float MAX_DISTANCE = 4;
-
+        private const float MIN_DISTANCE = 0.5f;
+        private const float MAX_DISTANCE = 2;
+        
         #endregion
 
 
         [SerializeField] private GameObject _platformPrefab;
 
         private Vector3 _spawnPlace;
+        private bool IsSpawned = false;
 
 
         #region MONO
 
         private void OnEnable()
         {
-            Scripts.RandomizePlatformScale.IncreaseOver += AddSpace;
+           GetComponent<Scripts.Bridge.RandomizePlatformScale>().IncreaseOver += AddSpace;
         }
 
         private void OnDisable()
         {
-            Scripts.RandomizePlatformScale.IncreaseOver -= AddSpace;
+            GetComponent<Scripts.Bridge.RandomizePlatformScale>().IncreaseOver -= AddSpace;
         }
-
 
         #endregion
 
-
         private void Update()
         {
-            if (Camera.main.transform.position.x - SPAWN_DISTANCE >= gameObject.GetComponent<Transform>().position.x )
+            if (Camera.main.transform.position.x + SPAWN_DISTANCE >= gameObject.transform.position.x && IsSpawned == false)
             {
                 SpawnNextPlatform();
+                IsSpawned = true;
             }
         }
-
         private void AddSpace(Vector3 currentPos, float width)
         {
-            _spawnPlace = new Vector3(currentPos.x + (width / 2) + Random.Range(0, MAX_DISTANCE), currentPos.y, currentPos.z);
-            
+            _spawnPlace = new Vector3(currentPos.x + (width / 2) + Random.Range(MIN_DISTANCE, MAX_DISTANCE), currentPos.y, currentPos.z);        
         }
 
         private void SpawnNextPlatform()

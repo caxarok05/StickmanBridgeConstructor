@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts 
+namespace Scripts.Environment
 {
     public class BGMovement : MonoBehaviour
     {

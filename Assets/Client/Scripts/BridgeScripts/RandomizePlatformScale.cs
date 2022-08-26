@@ -1,20 +1,21 @@
 using UnityEngine;
 
-namespace Scripts
+namespace Scripts.Bridge
 {
     public class RandomizePlatformScale : MonoBehaviour
     {
 
         #region CONSTANTS
 
-        private const float MAX_WIDTH = 4;
+        private const float MIN_WIDTH = 0.3f;
+        private const float MAX_WIDTH = 3;
 
         #endregion
 
         #region EVENTS
 
-        public delegate void IncreasingPrefab(Vector3 pos, float width);
-        public static event IncreasingPrefab IncreaseOver;
+        public delegate void IncreasingPrefabHandler(Vector3 pos, float width);
+        public event IncreasingPrefabHandler IncreaseOver;
 
 
         #endregion
@@ -25,9 +26,9 @@ namespace Scripts
 
         #region MONO
 
-        private void Awake()
+        private void Start()
         {
-            IncreasingSize = Random.Range(0, MAX_WIDTH);
+            IncreasingSize = Random.Range(MIN_WIDTH, MAX_WIDTH);
             _currentPlatformTransform = GetComponent<Transform>();
 
             IncreasePrefabScale();
@@ -39,7 +40,7 @@ namespace Scripts
 
         private void IncreasePrefabScale()
         {
-            _currentPlatformTransform.localScale = new Vector3(_currentPlatformTransform.localScale.x + IncreasingSize, _currentPlatformTransform.localScale.y, _currentPlatformTransform.localScale.z);
+            _currentPlatformTransform.localScale = new Vector3(IncreasingSize, _currentPlatformTransform.localScale.y, _currentPlatformTransform.localScale.z);
         }
         
         private void FixPosition()
@@ -48,3 +49,4 @@ namespace Scripts
         }
     }
 }
+ 
