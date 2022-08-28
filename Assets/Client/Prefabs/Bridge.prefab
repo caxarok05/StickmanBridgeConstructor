@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3975721162189141278}
   - component: {fileID: 7282770680508653926}
   - component: {fileID: 6374251212002483569}
+  - component: {fileID: 9214660227434393880}
   m_Layer: 0
   m_Name: Bridge
-  m_TagString: Untagged
+  m_TagString: BridgeTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3975721162189141279}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0044143936, w: 0.99999034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.25559, y: -2.0164, z: 0}
   m_LocalScale: {x: 0.08788978, y: 0.05005007, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.506}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3975721162189141278
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -120,5 +121,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87976331d8bf12442a30b4d758bbafb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9214660227434393880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975721162189141279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b52845fe3778345a9f241f3faae3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

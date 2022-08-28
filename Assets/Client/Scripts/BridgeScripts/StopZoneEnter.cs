@@ -17,6 +17,11 @@ namespace Scripts.Bridge
             {
                 EnterStopZone();
             }
+            if (collision.gameObject.transform.CompareTag("BridgeTag"))
+            {
+                gameObject.SetActive(false);
+            }
+
         }
     }
 }

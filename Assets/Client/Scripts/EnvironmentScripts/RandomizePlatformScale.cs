@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts.Bridge
+namespace Scripts.Environment
 {
     public class RandomizePlatformScale : MonoBehaviour
     {

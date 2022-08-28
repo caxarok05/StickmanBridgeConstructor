@@ -4,26 +4,40 @@ namespace Scripts.Bridge
 {
     public class BridgeFallingScript : MonoBehaviour
     {
+        #region CONSTANTS
+
+        private const float MAX_ANGLE = -0.707f;
+        private const float ROTATION_SPEED = 60;
+
+        #endregion
+
+        #region EVENTS
+
+        public delegate void FallingHandler();
+        public static event FallingHandler BridgeFell;
+
+        #endregion
+
         private Transform _bridgeTransform;
         private Vector3 _rotationDot;
         private bool _canFall = false;
+
         #region MONO
 
         private void Start()
         {
             _bridgeTransform = GetComponent<Transform>();
             FindDot();
-
         }
 
         private void OnEnable()
         {
-            BuildingBridgeScript.BuildingEnd += EnableFalling;
+            BuildingBridgeScript.RaisingEnd += EnableFalling;
         }
 
         private void OnDisable()
         {
-            BuildingBridgeScript.BuildingEnd -= EnableFalling;
+            BuildingBridgeScript.RaisingEnd -= EnableFalling;
         }
         #endregion
 
@@ -32,7 +46,6 @@ namespace Scripts.Bridge
             if (_canFall)
             {
                 BridgeFalling();
-                _canFall = false;
             }
             
         }
@@ -44,7 +57,16 @@ namespace Scripts.Bridge
 
         private void BridgeFalling()
         {
-            _bridgeTransform.RotateAround(_rotationDot, Vector3.back, 90);
+            if (_bridgeTransform.rotation.z >= MAX_ANGLE)
+            {
+                _bridgeTransform.RotateAround(_rotationDot, Vector3.back, ROTATION_SPEED * Time.deltaTime);
+            }        
+            else
+            {
+                _canFall = false;
+                BridgeFell();
+            }
+              
         }
 
         private void FindDot()

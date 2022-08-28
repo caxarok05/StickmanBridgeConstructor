@@ -6,9 +6,17 @@ namespace Scripts.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        #region CONST
+
+        #region CONSTANTS
 
         private readonly Vector3 _movementDirection = Vector3.right;
+
+        #endregion
+
+        #region EVENTS
+
+        public delegate void BuildingHandler();
+        public static event BuildingHandler AbleToBuild;
 
         #endregion
 
@@ -28,12 +36,14 @@ namespace Scripts.Player
 
         private void OnEnable()
         {
-            Scripts.Bridge.StopZoneEnter.EnterStopZone += StopMovement;
+            Bridge.StopZoneEnter.EnterStopZone += StopMovement;
+            Bridge.BridgeFallingScript.BridgeFell += ContinueRun;
         }
 
         private void OnDisable()
         {
-            Scripts.Bridge.StopZoneEnter.EnterStopZone -= StopMovement;
+            Bridge.StopZoneEnter.EnterStopZone -= StopMovement;
+            Bridge.BridgeFallingScript.BridgeFell -= ContinueRun;
         }
 
         #endregion
@@ -41,18 +51,20 @@ namespace Scripts.Player
         private void Update()
         {
             if (!_onStopZone)
-                _playerTransform.Translate(_movementDirection * speed * Time.deltaTime);       
+                _playerTransform.Translate(_movementDirection * speed * Time.deltaTime);
+
         }
 
         private void StopMovement()
         {
             _onStopZone = true;
             _playerAnimator.SetTrigger("IdleTrigger");
+            AbleToBuild();
         }
 
         private void ContinueRun()
         {
-            _onStopZone = false;      //вьебать ивент короче после того как мост достроен 
+            _onStopZone = false;      
             _playerAnimator.SetTrigger("RunTrigger");
         }
     }

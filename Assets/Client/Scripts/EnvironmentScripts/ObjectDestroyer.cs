@@ -4,7 +4,7 @@ namespace Scripts.Environment
 {
     public class ObjectDestroyer : MonoBehaviour
     {
-        #region CONST
+        #region CONSTANTS
 
         private const float DESTROY_DISTANCE = 30;
 
